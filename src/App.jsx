@@ -1,39 +1,50 @@
 import React, { useState, useEffect } from 'react';
-import wordServices from './services/words.jsx'; // Replace with your actual word services
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import './App.css'; // Import your CSS file
-// import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
+import './App.css'
+import wordServices from './services/words.jsx'; // Assuming wordServices is in a separate file
 
-// const appId = '<INSERT_SPEECHLY_APP_ID_HERE>';
-// const SpeechlySpeechRecognition = createSpeechlySpeechRecognition(appId);
-// SpeechRecognition.applyPolyfill(SpeechlySpeechRecognition);
+const WordText = () => {
+  const [data, setData] = useState(null);
+  const [wordM, setWordM] = useState('');
 
-// const Dictaphone = () => {
-//   const {
-//     transcript,
-//     listening,
-//     browserSupportsSpeechRecognition
-//   } = useSpeechRecognition();
-//   const startListening = () => SpeechRecognition.startListening({ continuous: true });
+  const handleTranslateClick = () => {
+    if (wordM) {
+      fetch(`https://api.mymemory.translated.net/get?q=${wordM}&langpair=en|es`)
+        .then((response) => response.json())
+        .then(setData)
+        .catch((error) => {
+          console.log("Error fetching user data:", error);
+          setData(null);
+        });
+    } else {
+      setData(null);
+    }
+  };
 
-//   if (!browserSupportsSpeechRecognition) {
-//     return <span>Browser doesn't support speech recognition.</span>;
-//   }
+  const handleInputChange = (event) => {
+    setWordM(event.target.value);
+  };
 
-//   return (
-//     <div>
-//       <p>Microphone: {listening ? 'on' : 'off'}</p>
-//       <button
-//         onTouchStart={startListening}
-//         onMouseDown={startListening}
-//         onTouchEnd={SpeechRecognition.stopListening}
-//         onMouseUp={SpeechRecognition.stopListening}
-//       >Hold to talk</button>
-//       <p>{transcript}</p>
-//     </div>
-//   );
-// };
+  return( 
+    <div>
+      <h2>Translate</h2>
+      <p>Use this translator English to Spanish</p>
+      
+      <textarea
+        className='word'
+        type="text"
+        placeholder="English to Spanish"
+        value={wordM}
+        onChange={handleInputChange}
+      ></textarea>
+      
+      <button onClick={handleTranslateClick}>Translate</button>
+      
+      <p>Translation: {data?.responseData.translatedText}</p>
+    </div>
+  );
+};
 
 const Heading = ({ text }) => {
   return <h2>{text}</h2>;
@@ -82,7 +93,6 @@ const App = () => {
   const [newEnglishWord, setNewEnglishWord] = useState('');
   const [newSpanishWord, setNewSpanishWord] = useState('');
   const [filterEnglishWord, setFilterEnglishWord] = useState('');
-  
 
   useEffect(() => {
     wordServices.getAll().then((initialResult) => {
@@ -165,13 +175,13 @@ const App = () => {
   const WordItem = ({ englishWord, spanishWord, id }) => {
     return (
       <li className="english">
-      {englishWord} - <span className="spanish">{spanishWord}</span>
-      <Button
-        text="delete"
-        type="button"
-        handleNewChange={() => deleteWord(id, englishWord)}
-      />
-    </li>
+        {englishWord} - <span className="spanish">{spanishWord}</span>
+        <Button
+          text="delete"
+          type="button"
+          handleNewChange={() => deleteWord(id, englishWord)}
+        />
+      </li>
     );
   };
 
@@ -188,26 +198,29 @@ const App = () => {
 
   return (
     <div className="container">
-    <Heading text="Dictionary" />
-    <Filter
-      text="Filter words with"
-      value={filterEnglishWord}
-      handleNewChange={handleFilterEnglishWord}
-    />
-    <Heading text="Add a new Word" />
-    <WordForm
-      onSubmit={addWord}
-      newEnglishWord={newEnglishWord}
-      newSpanishWord={newSpanishWord}
-      handleNewEnglishWord={handleNewEnglishWord}
-      handleNewSpanishWord={handleNewSpanishWord}
-    />
-    <Heading text="Words List" />
-    <WordsList wordsAfterFilter={wordsAfterFilter} />
-    {/* <Dictaphone/> */}
-    <ToastContainer />
-  </div>
-);
+     
+      <Heading text="Dictionary" />
+      <Filter
+        text="Filter words with"
+        value={filterEnglishWord}
+        handleNewChange={handleFilterEnglishWord}
+      />
+      <Heading text="Add a new Word" />
+      <WordForm
+        onSubmit={addWord}
+        newEnglishWord={newEnglishWord}
+        newSpanishWord={newSpanishWord}
+        handleNewEnglishWord={handleNewEnglishWord}
+        handleNewSpanishWord={handleNewSpanishWord}
+      />
+      <Heading text="Words List" />
+      <WordsList wordsAfterFilter={wordsAfterFilter} />
+      <ToastContainer />
+      <div className="container">
+      <WordText />
+      </div>
+    </div>
+  );
 };
 
 export default App;
