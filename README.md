@@ -23,7 +23,7 @@ Follow these steps to set up and run the phonebook application.
    ```
 
     ```bash
-   cd phonebook
+   cd woeds
 
 ```
 npm install

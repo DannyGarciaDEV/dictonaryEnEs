@@ -1,0 +1,29 @@
+{
+  "words": [
+    {
+      "englishWord": "hello",
+      "spanishWord": "hola",
+      "id": 1
+    },
+    {
+      "englishWord": "goodbye",
+      "spanishWord": "adiós",
+      "id": 2
+    },
+    {
+      "englishWord": "house",
+      "spanishWord": "casa",
+      "id": 3
+    },
+    {
+      "englishWord": "friend",
+      "spanishWord": "amigo/amiga",
+      "id": 4
+    },
+    {
+      "englishWord": "pet",
+      "spanishWord": "mascota",
+      "id": 6
+    }
+  ]
+}
