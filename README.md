@@ -1,8 +1,9 @@
 
 
-# Phonebook App
+# dictonaryEnEs
 
-This is a simple phonebook application built with React and JSON Server.
+
+This is a simple dictonary english to spanish application built with React and JSON Server.
 
 ## Getting Started
 
@@ -34,4 +35,3 @@ npx json-server --watch db.json --port 3001
  ```bash
 npm start
 ```
-# dictonaryEnEs
