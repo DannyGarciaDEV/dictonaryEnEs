@@ -1,0 +1,31 @@
+/* Navbar.css */
+
+.navbar {
+    background-color: #c6e1f2; /* Blue */
+    padding: 15px;
+    border-bottom: 2px solid #90c5e8; /* Darker Blue */
+  }
+  
+  .custom-class {
+    background-color: #cdfce1; /* Green */
+  }
+  
+  .nav-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .nav-link {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: color 0.3s ease; /* Smooth transition on color change */
+  }
+  
+  .nav-link:hover {
+    color: #eec8c8; /* Orange on hover */
+  }
