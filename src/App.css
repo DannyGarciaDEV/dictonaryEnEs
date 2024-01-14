@@ -67,3 +67,12 @@ li {
   border-radius: 4px;
   margin:2px
 }
+
+
+.word {
+  padding: 8px;
+  margin: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  overflow: auto; /* Add this line to enable scrolling */
+}
