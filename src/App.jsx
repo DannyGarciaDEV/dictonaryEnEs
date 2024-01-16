@@ -2,6 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css'
+// import Navbar from './Navbar';
+// import FlashCards from './FlashCards'; // Import your FlashCards component
+
+// import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+
 import wordServices from './services/words.jsx'; // Assuming wordServices is in a separate file
 
 const WordText = () => {
@@ -197,29 +202,43 @@ const App = () => {
   ));
 
   return (
+    <>
+    <div>
+    
+    </div>
     <div className="container">
-     
-      <Heading text="Dictionary" />
-      <Filter
-        text="Filter words with"
-        value={filterEnglishWord}
-        handleNewChange={handleFilterEnglishWord}
-      />
-      <Heading text="Add a new Word" />
-      <WordForm
-        onSubmit={addWord}
-        newEnglishWord={newEnglishWord}
-        newSpanishWord={newSpanishWord}
-        handleNewEnglishWord={handleNewEnglishWord}
-        handleNewSpanishWord={handleNewSpanishWord}
-      />
-      <Heading text="Words List" />
-      <WordsList wordsAfterFilter={wordsAfterFilter} />
-      <ToastContainer />
+  
+
+    <div className="container">
       <div className="container">
-      <WordText />
+        <WordText />
+      </div>
+
+      <div className="container">
+        <Heading text="Dictionary" />
+        <Filter
+          text="Filter words with"
+          value={filterEnglishWord}
+          handleNewChange={handleFilterEnglishWord}
+        />
+
+        <Heading text="Add a new Word" />
+        <WordForm
+          onSubmit={addWord}
+          newEnglishWord={newEnglishWord}
+          newSpanishWord={newSpanishWord}
+          handleNewEnglishWord={handleNewEnglishWord}
+          handleNewSpanishWord={handleNewSpanishWord}
+        />
+
+        <Heading text="Words List" />
+        <WordsList wordsAfterFilter={wordsAfterFilter} />
+
+        <ToastContainer />
       </div>
     </div>
+  </div>
+ </>
   );
 };
 

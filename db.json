@@ -24,6 +24,11 @@
       "englishWord": "pet",
       "spanishWord": "mascota",
       "id": 6
+    },
+    {
+      "englishWord": "sidewalk",
+      "spanishWord": "banqueta",
+      "id": 7
     }
   ]
 }
