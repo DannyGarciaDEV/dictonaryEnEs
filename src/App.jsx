@@ -202,44 +202,35 @@ const App = () => {
   ));
 
   return (
-    <>
-    <div>
-    
+    <div className="app-container">
+    <div className="translation-container">
+      <WordText />
     </div>
-    <div className="container">
-  
 
-    <div className="container">
-      <div className="container">
-        <WordText />
-      </div>
+    <div className="dictionary-container">
+      <Heading text="Dictionary" />
+      <Filter
+        text="Filter words with"
+        value={filterEnglishWord}
+        handleNewChange={handleFilterEnglishWord}
+      />
 
-      <div className="container">
-        <Heading text="Dictionary" />
-        <Filter
-          text="Filter words with"
-          value={filterEnglishWord}
-          handleNewChange={handleFilterEnglishWord}
-        />
+      <Heading text="Add a new Word" />
+      <WordForm
+        onSubmit={addWord}
+        newEnglishWord={newEnglishWord}
+        newSpanishWord={newSpanishWord}
+        handleNewEnglishWord={handleNewEnglishWord}
+        handleNewSpanishWord={handleNewSpanishWord}
+      />
 
-        <Heading text="Add a new Word" />
-        <WordForm
-          onSubmit={addWord}
-          newEnglishWord={newEnglishWord}
-          newSpanishWord={newSpanishWord}
-          handleNewEnglishWord={handleNewEnglishWord}
-          handleNewSpanishWord={handleNewSpanishWord}
-        />
+      <Heading text="Words List" />
+      <WordsList wordsAfterFilter={wordsAfterFilter} />
 
-        <Heading text="Words List" />
-        <WordsList wordsAfterFilter={wordsAfterFilter} />
-
-        <ToastContainer />
-      </div>
+      <ToastContainer />
     </div>
   </div>
- </>
-  );
+);
 };
 
 export default App;
