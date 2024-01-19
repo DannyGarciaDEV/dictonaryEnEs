@@ -2,54 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css'
-// import Navbar from './Navbar';
-// import FlashCards from './FlashCards'; // Import your FlashCards component
+import WordText from './WordText.jsx'// Assuming wordServices is in a separate file
+import NavBar from './Navbar.jsx'
 
-// import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+ import FlashCards from './FlashCards'; // Import your FlashCards component
+
+ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import wordServices from './services/words.jsx'; // Assuming wordServices is in a separate file
 
-const WordText = () => {
-  const [data, setData] = useState(null);
-  const [wordM, setWordM] = useState('');
-
-  const handleTranslateClick = () => {
-    if (wordM) {
-      fetch(`https://api.mymemory.translated.net/get?q=${wordM}&langpair=en|es`)
-        .then((response) => response.json())
-        .then(setData)
-        .catch((error) => {
-          console.log("Error fetching user data:", error);
-          setData(null);
-        });
-    } else {
-      setData(null);
-    }
-  };
-
-  const handleInputChange = (event) => {
-    setWordM(event.target.value);
-  };
-
-  return( 
-    <div>
-      <h2>Translate</h2>
-      <p>Use this translator English to Spanish</p>
-      
-      <textarea
-        className='word'
-        type="text"
-        placeholder="English to Spanish"
-        value={wordM}
-        onChange={handleInputChange}
-      ></textarea>
-      
-      <button onClick={handleTranslateClick}>Translate</button>
-      
-      <p>Translation: {data?.responseData.translatedText}</p>
-    </div>
-  );
-};
 
 const Heading = ({ text }) => {
   return <h2>{text}</h2>;
@@ -100,28 +61,36 @@ const App = () => {
   const [filterEnglishWord, setFilterEnglishWord] = useState('');
 
   useEffect(() => {
-    wordServices.getAll().then((initialResult) => {
-      setWords(initialResult);
-    });
+    const fetchWords = async () => {
+      try {
+        const initialResult = await wordServices.getAll();
+        setWords(initialResult);
+      } catch (error) {
+        console.error('Error fetching words:', error);
+      }
+    };
+
+    fetchWords(); // Call the function to fetch words on component mount
   }, []);
 
   const addWord = async (event) => {
     event.preventDefault();
-    const newWord = {
-      englishWord: newEnglishWord,
-      spanishWord: newSpanishWord,
-    };
 
-    const checkEnglishWord = words.find(
-      (word) => word.englishWord.toLowerCase() === newWord.englishWord.toLowerCase()
+    // Simplified code for checking duplicate English word
+    const isDuplicate = words.some(
+      (word) => word.englishWord.toLowerCase() === newEnglishWord.toLowerCase()
     );
 
-    if (checkEnglishWord) {
+    if (isDuplicate) {
       toast.error(`${newEnglishWord} is already added to the dictionary`);
     } else {
       try {
-        const returnedWord = await wordServices.create(newWord);
-        setWords(words.concat(returnedWord));
+        const newWord = await wordServices.create({
+          englishWord: newEnglishWord,
+          spanishWord: newSpanishWord,
+        });
+
+        setWords((prevWords) => [...prevWords, newWord]);
         setNewEnglishWord('');
         setNewSpanishWord('');
         toast.success(`Successfully added ${newEnglishWord}`);
@@ -130,12 +99,10 @@ const App = () => {
       }
     }
 
-    // Clear the notification after 5 seconds
     setTimeout(() => {
-      toast.dismiss(); // Clear all notifications
+      toast.dismiss();
     }, 5000);
   };
-
   const handleNewEnglishWord = (event) => {
     setNewEnglishWord(event.target.value);
   };
@@ -202,9 +169,22 @@ const App = () => {
   ));
 
   return (
+    <div>
+  <Router>
+     
+        <Navbar />
+        <Switch>
+          <Route path="/App" exact component={Home} />
+          <Route path="/FlashCards" component={FlashCards} />
+          {/* Add more routes as needed */}
+        </Switch>
+    
+    </Router>
+    
     <div className="app-container">
+   
     <div className="translation-container">
-      <WordText />
+    <WordText setWords={setWords} />
     </div>
 
     <div className="dictionary-container">
@@ -230,6 +210,8 @@ const App = () => {
       <ToastContainer />
     </div>
   </div>
+  </div>
+
 );
 };
 
