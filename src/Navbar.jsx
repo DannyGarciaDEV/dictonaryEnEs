@@ -1,19 +1,17 @@
 import React from 'react';
+import './Navbar.css'; // Import your CSS file for styling
 import { Link } from 'react-router-dom';
-import classNames from 'classnames';
-import './Navbar.css';
-
-const Navbar = ({ isCustom }) => {
-  const navbarClasses = classNames('navbar', { 'custom-class': isCustom });
-
+const Navbar = () => {
   return (
-    <nav className={navbarClasses}>
-      <ul className="nav-list">
-        <li><Link to="/" className="nav-link">Home</Link></li>
-        <li><Link to="/FlashCards" className="nav-link">Flash Cards</Link></li>
-      </ul>
-    </nav>
-  );
+    <div className="navbar">
+    <input type="checkbox" id="menu-toggle" className="menu-toggle" />
+    <label htmlFor="menu-toggle" className="menu-icon">&#9776;</label>
+    <ul className="nav-links">
+      <li><Link to="/App">Home</Link></li>
+      <li><Link to="/FlashCards">FlashCards</Link></li>
+      
+    </ul>
+  </div>
+);
 };
-
 export default Navbar;
