@@ -6,9 +6,7 @@ import WordText from './WordText.jsx'// Assuming wordServices is in a separate f
 import NavBar from './Navbar.jsx'
 
  import FlashCards from './FlashCards'; // Import your FlashCards component
-
  import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-
 import wordServices from './services/words.jsx'; // Assuming wordServices is in a separate file
 
 
@@ -170,22 +168,19 @@ const App = () => {
 
   return (
     <div>
-  <Router>
-     
-        <Navbar />
-        <Switch>
-          <Route path="/App" exact component={Home} />
-          <Route path="/FlashCards" component={FlashCards} />
-          {/* Add more routes as needed */}
-        </Switch>
-    
+    <Router>
+      <NavBar />
+      <Switch>
+        <Route path="/App" exact component={App} />
+        <Route path="/FlashCards" component={FlashCards} />
+        {/* Add more routes as needed */}
+      </Switch>
     </Router>
-    
+
     <div className="app-container">
-   
-    <div className="translation-container">
-    <WordText setWords={setWords} />
-    </div>
+      <div className="translation-container">
+        <WordText setWords={setWords} />
+      </div>
 
     <div className="dictionary-container">
       <Heading text="Dictionary" />
