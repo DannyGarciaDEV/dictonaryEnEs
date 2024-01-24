@@ -3,10 +3,10 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css'
 import WordText from './WordText.jsx'// Assuming wordServices is in a separate file
-import NavBar from './Navbar.jsx'
+import Navbar from './Navbar.jsx'
 
- import FlashCards from './FlashCards'; // Import your FlashCards component
- import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+
+
 import wordServices from './services/words.jsx'; // Assuming wordServices is in a separate file
 
 
@@ -168,14 +168,13 @@ const App = () => {
 
   return (
     <div>
-    <Router>
-      <NavBar />
-      <Switch>
-        <Route path="/App" exact component={App} />
-        <Route path="/FlashCards" component={FlashCards} />
-        {/* Add more routes as needed */}
-      </Switch>
-    </Router>
+
+      <Navbar />
+      
+      
+      
+      
+   
 
     <div className="app-container">
       <div className="translation-container">
